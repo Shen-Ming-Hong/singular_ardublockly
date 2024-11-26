@@ -496,6 +496,7 @@ void OLED_display()
 
     int intPart = (int)voltage;                         // 整數部分
     int decimalPart = (int)((voltage - intPart) * 100); // 小數部分（保留兩位小數）
+    ultrasonic();
 
     sprintf(buffer, "Volt:%d.%02dV", intPart, abs(decimalPart));
     u8g2.drawStr(0, 10, buffer);
@@ -515,8 +516,12 @@ void OLED_display()
     sprintf(buffer, "IR_RR:%4d", analogRead(IR[4]));
     u8g2.drawStr(0, 60, buffer);
 
+    sprintf(buffer, "Dist:%3dcm", (int)distance);
+    u8g2.drawStr(64, 10, buffer);
+
     u8g2.sendBuffer();
     delay(100);
+    distance = 0;
 }
     `,
 		true
